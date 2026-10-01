@@ -31,6 +31,10 @@ dist/
 profile.cov
 coverage.txt
 
+# Go workspace files
+go.work
+go.work.sum
+
 # Miscellaneous
 .DS_Store
 Thumbs.db
