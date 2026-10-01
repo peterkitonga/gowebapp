@@ -8,13 +8,13 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # Go specific formatting rules (Must use tabs)
 [*.go]
 indent_style = tab
-indent_size = 2
-tab_width = 2
+indent_size = 4
+tab_width = 4
 
 # Go module and work files (Kept unformatted)
 [{go.mod,go.work}]
@@ -24,4 +24,17 @@ indent_size = unset
 # Makefiles must also strictly use tabs
 [Makefile]
 indent_style = tab
+indent_size = 4
+
+[Dockerfile]
+indent_style = space
+indent_size = 4
+
+[*.{json,yaml,yml}]
+indent_style = space
+indent_size = 2
+
+[*.{html,css,js}]
+indent_style = space
+indent_size = 2
 
