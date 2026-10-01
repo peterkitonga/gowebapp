@@ -1,6 +1,6 @@
 package config
 
-import "text/template"
+import "html/template"
 
 // AppConfig: holds the application config
 type AppConfig struct {
