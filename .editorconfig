@@ -1,0 +1,27 @@
+# This is the top-most EditorConfig file
+root = true
+
+# Global default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Go specific formatting rules (Must use tabs)
+[*.go]
+indent_style = tab
+indent_size = 2
+tab_width = 2
+
+# Go module and work files (Kept unformatted)
+[{go.mod,go.work}]
+indent_style = unset
+indent_size = unset
+
+# Makefiles must also strictly use tabs
+[Makefile]
+indent_style = tab
+
