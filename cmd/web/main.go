@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/peterkitonga/gowebapp/pkg/config"
-	"github.com/peterkitonga/gowebapp/pkg/handlers"
-	"github.com/peterkitonga/gowebapp/pkg/render"
+	"github.com/peterkitonga/gowebapp/internal/config"
+	"github.com/peterkitonga/gowebapp/internal/handlers"
+	"github.com/peterkitonga/gowebapp/internal/render"
 )
 
 const portNumber = ":8180"

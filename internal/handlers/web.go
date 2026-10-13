@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/peterkitonga/gowebapp/pkg/config"
-	"github.com/peterkitonga/gowebapp/pkg/models"
-	"github.com/peterkitonga/gowebapp/pkg/render"
+	"github.com/peterkitonga/gowebapp/internal/config"
+	"github.com/peterkitonga/gowebapp/internal/models"
+	"github.com/peterkitonga/gowebapp/internal/render"
 )
 
 // Repository: is the repository type
