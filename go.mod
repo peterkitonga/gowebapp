@@ -1,3 +1,5 @@
 module github.com/peterkitonga/gowebapp
 
 go 1.26.5
+
+require github.com/go-chi/chi/v5 v5.4.0
