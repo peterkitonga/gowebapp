@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Go Web</h1>
+  <h1>The Fortress</h1>
   <p>An example web application created while learning Golang. Building on what I have learned from <a href="https://go.dev/doc/effective_go">Effective Go</a> and <a href="https://gobyexample.com/">Go by Example</a>.</p>
 </div>
 
