@@ -23,8 +23,9 @@ h6 {
 }
 
 .navbar .logo {
-  display: inline-block;
-  height: 9rem;
+  display: block;
+  height: 7rem;
+  width: 280px;
 }
 
 .navbar .nav-link {
