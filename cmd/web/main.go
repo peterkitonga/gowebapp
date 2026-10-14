@@ -12,9 +12,9 @@ import (
 
 const portNumber = ":8180"
 
-func main() {
-	var app config.AppConfig
+var app config.AppConfig
 
+func main() {
 	app.InProduction = false
 
 	repo := handlers.NewRepo(&app)
