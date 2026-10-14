@@ -4,6 +4,7 @@ go 1.26.5
 
 require (
 	github.com/CloudyKit/jet/v6 v6.3.3
+	github.com/alexedwards/scs/v2 v2.9.0
 	github.com/go-chi/chi/v5 v5.4.0
 	github.com/justinas/nosurf v1.2.0
 )
