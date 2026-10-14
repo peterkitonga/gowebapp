@@ -7,7 +7,7 @@ import (
 
 	"github.com/CloudyKit/jet/v6"
 	"github.com/peterkitonga/gowebapp/internal/config"
-	"github.com/peterkitonga/gowebapp/internal/models"
+	"github.com/peterkitonga/gowebapp/internal/model"
 )
 
 var app *config.AppConfig

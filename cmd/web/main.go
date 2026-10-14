@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/peterkitonga/gowebapp/internal/config"
-	"github.com/peterkitonga/gowebapp/internal/handlers"
+	"github.com/peterkitonga/gowebapp/internal/handler"
 	"github.com/peterkitonga/gowebapp/internal/render"
 )
 
