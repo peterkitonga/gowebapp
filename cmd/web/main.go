@@ -15,13 +15,7 @@ const portNumber = ":8180"
 func main() {
 	var app config.AppConfig
 
-	templateCache, err := render.CreateTemplateCache()
-	if err != nil {
-		log.Fatal("Cannot create template cache")
-	}
-
-	app.TemplateCache = templateCache
-	app.UseCache = false
+	app.InProduction = false
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
@@ -35,6 +29,6 @@ func main() {
 		Handler: routes(),
 	}
 
-	err = srv.ListenAndServe()
+	err := srv.ListenAndServe()
 	log.Fatal(err)
 }
