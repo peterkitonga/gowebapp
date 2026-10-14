@@ -54,3 +54,35 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error executing template: %v", err)
 	}
 }
+
+// Contact is the contact page handler
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	err := render.RenderPage(w, "contact.page.jet", &models.TemplateData{})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}
+
+// Reservation is the reservation page handler
+func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+	err := render.RenderPage(w, "reservation.page.jet", &models.TemplateData{})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}
+
+// Quarters is the general's quarters page handler
+func (m *Repository) Quarters(w http.ResponseWriter, r *http.Request) {
+	err := render.RenderPage(w, "room-generals-quarters.page.jet", &models.TemplateData{})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}
+
+// Suite is the major's suite page handler
+func (m *Repository) Suite(w http.ResponseWriter, r *http.Request) {
+	err := render.RenderPage(w, "room-majors-suite.page.jet", &models.TemplateData{})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}

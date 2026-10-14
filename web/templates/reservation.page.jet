@@ -1,0 +1,13 @@
+{{ extends "layouts/base.layout.jet" }}
+
+{{ block title() }}Book Now{{ end }}
+
+{{ block body() }}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-5">Make Reservation</h1>
+    </div>
+  </div>
+</div>
+{{ end }}
