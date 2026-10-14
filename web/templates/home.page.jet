@@ -1,0 +1,14 @@
+{{ extends "layouts/base.layout.jet" }}
+
+{{ block title() }}Home{{ end }}
+
+{{ block body() }}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-5">Welcome, {{Data.name}}</h1>
+      <a href="/about" class="btn btn-outline-primary btn-sm">About &#8594;</a>
+    </div>
+  </div>
+</div>
+{{ end }}

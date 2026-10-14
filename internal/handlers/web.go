@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/peterkitonga/gowebapp/internal/config"
@@ -8,37 +9,48 @@ import (
 	"github.com/peterkitonga/gowebapp/internal/render"
 )
 
-// Repository: is the repository type
+// Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
 }
 
-// Repo: the repository used by the handlers
+// Repo the repository used by the handlers
 var Repo *Repository
 
-// NewRepo: create a new repository
+// NewRepo create a new repository
 func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
 	}
 }
 
-// NewHandlers: sets the repository for the handlers
+// NewHandlers sets the repository for the handlers
 func NewHandlers(r *Repository) {
 	Repo = r
 }
 
-// Home: is the home page handler
+// Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
+	data := make(map[string]interface{})
+	data["name"] = "John Doe"
+
+	err := render.RenderPage(w, "home.page.jet", &models.TemplateData{
+		Data: data,
+	})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
 }
 
-// About: is the about page handler
+// About is the about page handler
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello, again!"
 
-	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+	err := render.RenderPage(w, "about.page.jet", &models.TemplateData{
 		StringMap: stringMap,
 	})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
 }
