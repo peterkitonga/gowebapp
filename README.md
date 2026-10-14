@@ -29,7 +29,7 @@ Go to the project directory
 Start the development server
 
 ```bash
-  go run ./cmd/web
+  go tool air
 ```
 
 ## Deployment

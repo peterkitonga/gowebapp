@@ -13,6 +13,7 @@
 !.env.example
 
 # Compiled binaries/executables (e.g., from 'go build')
+tmp/
 bin/
 dist/
 *.exe
