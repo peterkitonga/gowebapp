@@ -85,6 +85,15 @@
     </div>
   </footer>
 
+  <div class="toast-container position-fixed top-0 end-0 mt-4 me-3">
+    <div id="toast-el" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toast-el-body"></div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap 5 JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -97,6 +106,15 @@
     crossorigin="anonymous"></script>
   <!-- Custom JavaScript -->
   <script src="/static/scripts/constants.js"></script>
+  <script src="/static/scripts/form-validation.js"></script>
+  <script src="/static/scripts/overlays.js"></script>
+  <script type="module">
+    {{if Error}}toggleToast('{{Error}}', 'error');{{end}}
+
+    {{if Flash}}toggleToast('{{Flash}}', 'success');{{end}}
+
+    {{if Warning}}toggleToast('{{Warning}}', 'warning');{{end}}
+  </script>
   {{ yield scripts() }}
 </body>
 
