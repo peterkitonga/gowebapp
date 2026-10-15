@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -93,4 +94,13 @@ func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
+}
+
+// PostSearchAvailability handles request for search availability
+func (m *Repository) PostSearchAvailability(w http.ResponseWriter, r *http.Request) {
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+
+	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Rooms available from '%s' to '%s'!", start, end))
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
