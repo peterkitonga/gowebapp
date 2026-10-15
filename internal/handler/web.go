@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"fmt"
@@ -35,7 +35,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["name"] = "John Doe"
 
-	err := render.RenderPage(w, r, "home.page.jet", &models.TemplateData{
+	err := render.RenderPage(w, r, "home.page.jet", &model.TemplateData{
 		Data: data,
 	})
 	if err != nil {
@@ -48,7 +48,7 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello, again!"
 
-	err := render.RenderPage(w, r, "about.page.jet", &models.TemplateData{
+	err := render.RenderPage(w, r, "about.page.jet", &model.TemplateData{
 		StringMap: stringMap,
 	})
 	if err != nil {
@@ -58,7 +58,7 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 
 // Contact is the contact page handler
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "contact.page.jet", &models.TemplateData{})
+	err := render.RenderPage(w, r, "contact.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -66,7 +66,7 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 // Reservation is the reservation page handler
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "reservation.page.jet", &models.TemplateData{})
+	err := render.RenderPage(w, r, "reservation.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -74,7 +74,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
 // Quarters is the general's quarters page handler
 func (m *Repository) Quarters(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "room-generals-quarters.page.jet", &models.TemplateData{})
+	err := render.RenderPage(w, r, "room-generals-quarters.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -82,7 +82,7 @@ func (m *Repository) Quarters(w http.ResponseWriter, r *http.Request) {
 
 // Suite is the major's suite page handler
 func (m *Repository) Suite(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "room-majors-suite.page.jet", &models.TemplateData{})
+	err := render.RenderPage(w, r, "room-majors-suite.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -90,7 +90,7 @@ func (m *Repository) Suite(w http.ResponseWriter, r *http.Request) {
 
 // SearchAvailability is the search availability page handler
 func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "search-availability.page.jet", &models.TemplateData{})
+	err := render.RenderPage(w, r, "search-availability.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}

@@ -16,17 +16,17 @@ func routes() http.Handler {
 	mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 
-	mux.Get("/", handlers.Repo.Home)
-	mux.Get("/about", handlers.Repo.About)
-	mux.Get("/contact", handlers.Repo.Contact)
+	mux.Get("/", handler.Repo.Home)
+	mux.Get("/about", handler.Repo.About)
+	mux.Get("/contact", handler.Repo.Contact)
 
-	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Get("/make-reservation", handler.Repo.Reservation)
 
-	mux.Get("/rooms/generals-quarters", handlers.Repo.Quarters)
-	mux.Get("/rooms/majors-suite", handlers.Repo.Suite)
+	mux.Get("/rooms/generals-quarters", handler.Repo.Quarters)
+	mux.Get("/rooms/majors-suite", handler.Repo.Suite)
 
-	mux.Get("/search-availability", handlers.Repo.SearchAvailability)
-	mux.Post("/search-availability", handlers.Repo.PostSearchAvailability)
+	mux.Get("/search-availability", handler.Repo.SearchAvailability)
+	mux.Post("/search-availability", handler.Repo.PostSearchAvailability)
 
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
 

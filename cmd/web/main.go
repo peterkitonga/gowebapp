@@ -28,8 +28,8 @@ func main() {
 
 	app.Session = session
 
-	repo := handlers.NewRepo(&app)
-	handlers.NewHandlers(repo)
+	repo := handler.NewRepo(&app)
+	handler.NewHandlers(repo)
 
 	render.NewTemplates(&app)
 

@@ -1,4 +1,4 @@
-package models
+package model
 
 // TemplateData: holds data set from handlers to templates
 type TemplateData struct {

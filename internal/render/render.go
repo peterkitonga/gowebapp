@@ -19,7 +19,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // AddDefaultData set the default data passed to templates
-func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData {
+func AddDefaultData(templateData *model.TemplateData, r *http.Request) *model.TemplateData {
 	templateData.CSRFToken = nosurf.Token(r)
 	templateData.Flash = app.Session.PopString(r.Context(), "flash")
 	templateData.Error = app.Session.PopString(r.Context(), "error")
@@ -29,7 +29,7 @@ func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.
 }
 
 // RenderPage renders templates using jet templates
-func RenderPage(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error {
+func RenderPage(w http.ResponseWriter, r *http.Request, tmpl string, td *model.TemplateData) error {
 	var templateSet = jet.NewSet(
 		jet.NewOSFileSystemLoader("./web/templates"),
 		jet.DevelopmentMode(app.InProduction),
@@ -54,7 +54,7 @@ func RenderPage(w http.ResponseWriter, r *http.Request, tmpl string, td *models.
 	return nil
 }
 
-func DataToVarMap(td *models.TemplateData) jet.VarMap {
+func DataToVarMap(td *model.TemplateData) jet.VarMap {
 	data := make(jet.VarMap)
 	v := reflect.ValueOf(&td)
 	// Resolves to the underlying struct
