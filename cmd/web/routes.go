@@ -22,6 +22,7 @@ func routes() http.Handler {
 	mux.Get("/make-reservation", handlers.Repo.Reservation)
 	mux.Get("/rooms/generals-quarters", handlers.Repo.Quarters)
 	mux.Get("/rooms/majors-suite", handlers.Repo.Suite)
+	mux.Get("/search-availability", handlers.Repo.SearchAvailability)
 
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
 

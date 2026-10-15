@@ -86,3 +86,11 @@ func (m *Repository) Suite(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error executing template: %v", err)
 	}
 }
+
+// SearchAvailability is the search availability page handler
+func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
+	err := render.RenderPage(w, "search-availability.page.jet", &models.TemplateData{})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}
