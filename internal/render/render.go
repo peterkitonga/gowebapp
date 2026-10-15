@@ -21,6 +21,9 @@ func NewTemplates(a *config.AppConfig) {
 // AddDefaultData set the default data passed to templates
 func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData {
 	templateData.CSRFToken = nosurf.Token(r)
+	templateData.Flash = app.Session.PopString(r.Context(), "flash")
+	templateData.Error = app.Session.PopString(r.Context(), "error")
+	templateData.Warning = app.Session.PopString(r.Context(), "warning")
 
 	return templateData
 }
