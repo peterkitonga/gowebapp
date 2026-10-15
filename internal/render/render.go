@@ -6,6 +6,7 @@ import (
 	"reflect"
 
 	"github.com/CloudyKit/jet/v6"
+	"github.com/justinas/nosurf"
 	"github.com/peterkitonga/gowebapp/internal/config"
 	"github.com/peterkitonga/gowebapp/internal/model"
 )
@@ -18,17 +19,19 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // AddDefaultData set the default data passed to templates
-func AddDefaultData(templateData *models.TemplateData) *models.TemplateData {
+func AddDefaultData(templateData *models.TemplateData, r *http.Request) *models.TemplateData {
+	templateData.CSRFToken = nosurf.Token(r)
+
 	return templateData
 }
 
 // RenderPage renders templates using jet templates
-func RenderPage(w http.ResponseWriter, tmpl string, td *models.TemplateData) error {
+func RenderPage(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error {
 	var templateSet = jet.NewSet(
 		jet.NewOSFileSystemLoader("./web/templates"),
 		jet.DevelopmentMode(app.InProduction),
 	)
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 	data := DataToVarMap(td)
 
 	template, err := templateSet.GetTemplate(tmpl)
