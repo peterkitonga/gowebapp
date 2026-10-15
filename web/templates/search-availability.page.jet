@@ -6,8 +6,12 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1 class="mt-5">Search Availability</h1>
+      <h1 class="mt-5">Search for Availability</h1>
     </div>
   </div>
 </div>
+{{ end }}
+
+{{ block scripts() }}
+<script type="module"></script>
 {{ end }}

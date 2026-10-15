@@ -11,3 +11,7 @@
   </div>
 </div>
 {{ end }}
+
+{{ block scripts() }}
+<script type="module"></script>
+{{ end }}
