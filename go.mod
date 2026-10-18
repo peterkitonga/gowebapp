@@ -5,6 +5,7 @@ go 1.26.5
 require (
 	github.com/CloudyKit/jet/v6 v6.3.3
 	github.com/alexedwards/scs/v2 v2.9.0
+	github.com/cohesivestack/valgo v0.9.1
 	github.com/go-chi/chi/v5 v5.4.0
 	github.com/justinas/nosurf v1.2.0
 )
@@ -31,6 +32,8 @@ require (
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/tdewolff/parse/v2 v2.8.12 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasttemplate v1.2.2 // indirect
 	golang.org/x/sys v0.46.0 // indirect
 	golang.org/x/text v0.38.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
