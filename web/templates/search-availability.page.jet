@@ -8,22 +8,26 @@
     <div class="col">
       <h1 class="mt-5">Search for Availability</h1>
 
-      <form method="POST" action="/search-availability" class="needs-validation" novalidate>
+      {{res := Data.availability}}
+
+      <form method="POST" action="/search-availability" class="{{if !Form.Valid()}}needs-validation{{end}}" novalidate>
         <input type="hidden" name="csrf_token" value="{{ CSRFToken }}">
         <div class="row g-3">
           <div class="col mb-3">
             <label for="start-date" class="form-label">Starting Date</label>
             <div class="input-group has-validation" id="start-datepicker" data-td-target-input="nearest"
               data-td-target-toggle="nearest">
-              <input required type="text" class="form-control" id="start-date" name="start" placeholder="YYYY-MM-DD"
-                data-td-target="#start-datepicker" autocomplete="off" aria-describedby="start-datepicker-icon">
+              <input type="text" class="form-control{{if Form.Errors.Get("start")}} is-invalid{{end}}" id="start-date" name="start" placeholder="YYYY-MM-DD"
+                data-td-target="#start-datepicker" autocomplete="off" aria-describedby="start-datepicker-icon" value="{{res.StartDate}}">
               <span class="input-group-text" data-td-target="#start-datepicker" data-td-toggle="datetimepicker"
                 id="start-datepicker-icon">
                 <i class="bi bi-calendar3"></i>
               </span>
+              {{if Form.Errors.Get("start")}}
               <div class="invalid-feedback">
-                Please choose a start date.
+                {{Form.Errors.Get("start")}}
               </div>
+              {{end}}
             </div>
           </div>
 
@@ -31,15 +35,17 @@
             <label for="end-date" class="form-label">Ending Date</label>
             <div class="input-group has-validation" id="end-datepicker" data-td-target-input="nearest"
               data-td-target-toggle="nearest">
-              <input required type="text" class="form-control" id="end-date" name="end" placeholder="YYYY-MM-DD"
-                data-td-target="#end-datepicker" autocomplete="off" aria-describedby="end-datepicker-icon">
+              <input type="text" class="form-control{{if Form.Errors.Get("end")}} is-invalid{{end}}" id="end-date" name="end" placeholder="YYYY-MM-DD"
+                data-td-target="#end-datepicker" autocomplete="off" aria-describedby="end-datepicker-icon" value="{{res.EndDate}}">
               <span class="input-group-text" data-td-target="#end-datepicker" data-td-toggle="datetimepicker"
                 id="end-datepicker-icon">
                 <i class="bi bi-calendar3"></i>
               </span>
+              {{if Form.Errors.Get("end")}}
               <div class="invalid-feedback">
-                Please choose an end date.
+                {{Form.Errors.Get("end")}}
               </div>
+              {{end}}
             </div>
           </div>
         </div>

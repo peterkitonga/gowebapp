@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/peterkitonga/gowebapp/internal/config"
+	"github.com/peterkitonga/gowebapp/internal/form"
 	"github.com/peterkitonga/gowebapp/internal/model"
 	"github.com/peterkitonga/gowebapp/internal/render"
 )
@@ -32,12 +33,7 @@ func NewHandlers(r *Repository) {
 
 // Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	data := make(map[string]interface{})
-	data["name"] = "John Doe"
-
-	err := render.RenderPage(w, r, "home.page.jet", &model.TemplateData{
-		Data: data,
-	})
+	err := render.RenderPage(w, r, "home.page.jet", &model.TemplateData{})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -90,7 +86,15 @@ func (m *Repository) Suite(w http.ResponseWriter, r *http.Request) {
 
 // SearchAvailability is the search availability page handler
 func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "search-availability.page.jet", &model.TemplateData{})
+	var emptyForm model.AvailabilityForm
+
+	data := make(map[string]interface{})
+	data["availability"] = emptyForm
+
+	err := render.RenderPage(w, r, "search-availability.page.jet", &model.TemplateData{
+		Form: form.New(nil),
+		Data: data,
+	})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
@@ -98,9 +102,36 @@ func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) 
 
 // PostSearchAvailability handles request for search availability
 func (m *Repository) PostSearchAvailability(w http.ResponseWriter, r *http.Request) {
-	start := r.Form.Get("start")
-	end := r.Form.Get("end")
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
-	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Rooms available from '%s' to '%s'!", start, end))
+	fieldLabels := make(map[string]string)
+	fieldLabels["start"] = "Starting Date"
+	fieldLabels["end"] = "Ending Date"
+
+	availability := model.AvailabilityForm{
+		StartDate: r.Form.Get("start"),
+		EndDate:   r.Form.Get("end"),
+	}
+
+	form := form.New(r.PostForm)
+	form.Required(fieldLabels)
+	form.IsAfterDate("end", "Ending Date", availability.StartDate)
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["availability"] = availability
+
+		render.RenderPage(w, r, "search-availability.page.jet", &model.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
+
+	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Rooms available from '%s' to '%s'!", availability.StartDate, availability.EndDate))
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
