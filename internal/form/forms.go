@@ -2,6 +2,7 @@ package form
 
 import (
 	"net/url"
+	"regexp"
 	"time"
 
 	"github.com/cohesivestack/valgo"
@@ -31,7 +32,7 @@ func (f *Form) Required(fields map[string]string) {
 	for name, title := range fields {
 		value := f.Get(name)
 		validate := valgo.Is(
-			valgo.String(value, name, title).Not().Blank("The '{{title}}' field cannot be blank."),
+			valgo.String(value, name, title).Not().Blank("'{{title}}' cannot be blank."),
 		)
 
 		handleValidationError(f, validate)
@@ -44,7 +45,28 @@ func (f *Form) IsAfterDate(name, title, date string) {
 	value, _ := time.Parse(layout, f.Get(name))
 	parsedDate, _ := time.Parse(layout, date)
 	validate := valgo.Is(
-		valgo.Time(value, name, title).After(parsedDate, "The '{{title}}' cannot be before '{{value}}'."),
+		valgo.Time(value, name, title).AfterOrEqualTo(parsedDate, "'{{title}}' cannot be before '{{value}}'."),
+	)
+
+	handleValidationError(f, validate)
+}
+
+// IsEmail checks if value is a valid email
+func (f *Form) IsEmail(name, title string) {
+	value := f.Get(name)
+	regex, _ := regexp.Compile(`^[^@\s]+@[^@\s]+\.[^@\s]+$`)
+	validate := valgo.Is(
+		valgo.String(value, name, title).MatchingTo(regex, "'{{title}}' should be a valid email."),
+	)
+
+	handleValidationError(f, validate)
+}
+
+// HasMinLength checks if values is equal to or great than the minimum length
+func (f *Form) HasMinLength(name, title string, length int) {
+	value := f.Get(name)
+	validate := valgo.Is(
+		valgo.String(value, name, title).MinLength(length, "'{{title}}' should be '{{length}}' characters or more."),
 	)
 
 	handleValidationError(f, validate)
