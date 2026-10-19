@@ -1,0 +1,50 @@
+{{ extends "layouts/base.layout.jet" }}
+
+{{ block title() }}Contact{{ end }}
+
+{{ block body() }}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-5">Reservation Summary</h1>
+
+      {{res := Data.reservation}}
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">*</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Name:</th>
+            <td>{{res.FirstName}} {{res.LastName}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Arrival:</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">Departure:</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">Email:</th>
+            <td>{{res.Email}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Phone:</th>
+            <td>{{res.Phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ block scripts() }}
+<script type="module"></script>
+{{ end }}
