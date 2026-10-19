@@ -62,7 +62,79 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 // Reservation is the reservation page handler
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	err := render.RenderPage(w, r, "reservation.page.jet", &model.TemplateData{})
+	var emptyForm model.ReservationForm
+
+	data := make(map[string]interface{})
+	data["reservation"] = emptyForm
+
+	err := render.RenderPage(w, r, "reservation.page.jet", &model.TemplateData{
+		Form: form.New(nil),
+		Data: data,
+	})
+	if err != nil {
+		log.Fatalf("Error executing template: %v", err)
+	}
+}
+
+// PostReservation handles the request for reservation
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	fieldLabels := make(map[string]string)
+	fieldLabels["first_name"] = "First Name"
+	fieldLabels["last_name"] = "Last Name"
+	fieldLabels["email"] = "Email"
+	fieldLabels["phone"] = "Phone"
+
+	reservation := model.ReservationForm{
+		FirstName: r.Form.Get("first_name"),
+		LastName:  r.Form.Get("last_name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
+	}
+
+	form := form.New(r.PostForm)
+	form.Required(fieldLabels)
+	form.HasMinLength("first_name", "First Name", 3)
+	form.HasMinLength("last_name", "Last Name", 3)
+	form.IsEmail("email", "Email")
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		render.RenderPage(w, r, "reservation.page.jet", &model.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
+
+	m.App.Session.Put(r.Context(), "reservation", reservation)
+	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
+}
+
+// ReservationSummary is the reservation summary page handler
+func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(model.ReservationForm)
+	if !ok {
+		log.Printf("Cannot get item from session")
+		m.App.Session.Put(r.Context(), "error", "Can't get reservation from session")
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		return
+	}
+
+	m.App.Session.Remove(r.Context(), "reservation")
+	data := make(map[string]interface{})
+	data["reservation"] = reservation
+
+	err := render.RenderPage(w, r, "reservation-summary.page.jet", &model.TemplateData{
+		Data: data,
+	})
 	if err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
